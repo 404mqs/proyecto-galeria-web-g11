@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Locales – Alto Saavedra Mall</title>
+  <meta name="description" content="Listado de locales y mapa interactivo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="container bar">
+      <a class="logo" href="../">Alto Saavedra Mall</a>
+      <nav aria-label="Principal">
+        <ul class="nav">
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="../servicios.html">Servicios</a></li>
+          <li><a href="../entretenimientos.html">Entretenimientos</a></li>
+          <li><a href="./" aria-current="page">Locales</a></li>
+          <li><a href="../ofertas.html">Ofertas</a></li>
+          <li><a href="../gastronomia.html">Gastronomía</a></li>
+          <li><a href="../contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="container stack">
+    <h1>Locales</h1>
+
+    <section class="mt-3">
+      <h2>Mapa</h2>
+      <figure class="mt-2">
+        <img src="../assets/svg/mall-map.svg" alt="Mapa esquemático del shopping" />
+      </figure>
+    </section>
+
+    <section class="mt-3">
+      <h2>Listado</h2>
+      <div class="grid cols-3 mt-2">
+        <article class="card"><div class="card__body"><h3 class="card__title">Cafetería Brisa</h3><p class="card__meta">Gastronomía • Planta Baja</p></div></article>
+        <article class="card"><div class="card__body"><h3 class="card__title">Moda Álamo</h3><p class="card__meta">Moda • Nivel 1</p></div></article>
+        <article class="card"><div class="card__body"><h3 class="card__title">Deco Nido</h3><p class="card__meta">Deco • Nivel 1</p></div></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container meta">
+      <span>© <span id="year"></span> Alto Saavedra Mall</span>
+      <span>Horarios: Lun a Dom 10–22 hs</span>
+    </div>
+  </footer>
+
+  <script src="../main.js"></script>
+</body>
+</html>

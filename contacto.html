@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contacto – Alto Saavedra Mall</title>
+  <meta name="description" content="Consultas, horarios, ubicación y contacto del shopping.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="container bar">
+      <a class="logo" href="./">Alto Saavedra Mall</a>
+      <nav aria-label="Principal">
+        <ul class="nav">
+          <li><a href="./index.html">Inicio</a></li>
+          <li><a href="./servicios.html">Servicios</a></li>
+          <li><a href="./entretenimientos.html">Entretenimientos</a></li>
+          <li><a href="./locales/">Locales</a></li>
+          <li><a href="./ofertas.html">Ofertas</a></li>
+          <li><a href="./gastronomia.html">Gastronomía</a></li>
+          <li><a href="./contacto.html" aria-current="page">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="container stack">
+    <h1>Contacto</h1>
+    <p class="mt-2">Escribinos y te respondemos a la brevedad.</p>
+    <form class="mt-3" aria-describedby="ayuda-contacto">
+      <div class="grid cols-2">
+        <label>
+          <span>Nombre</span>
+          <input type="text" name="nombre" required aria-required="true">
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" required aria-required="true">
+        </label>
+      </div>
+      <label class="mt-2">
+        <span>Mensaje</span>
+        <textarea name="mensaje" rows="5" required aria-required="true"></textarea>
+      </label>
+      <p id="ayuda-contacto" class="sr-only">Todos los campos son obligatorios.</p>
+      <button class="btn btn--primary mt-2" type="submit">Enviar</button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container meta">
+      <span>© <span id="year"></span> Alto Saavedra Mall</span>
+      <span>Horarios: Lun a Dom 10–22 hs</span>
+    </div>
+  </footer>
+
+  <script src="./main.js"></script>
+</body>
+</html>

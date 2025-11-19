@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ofertas – Alto Saavedra Mall</title>
+  <meta name="description" content="Promociones y descuentos vigentes en el shopping.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="container bar">
+      <a class="logo" href="./">Alto Saavedra Mall</a>
+      <nav aria-label="Principal">
+        <ul class="nav">
+          <li><a href="./index.html">Inicio</a></li>
+          <li><a href="./servicios.html">Servicios</a></li>
+          <li><a href="./entretenimientos.html">Entretenimientos</a></li>
+          <li><a href="./locales/">Locales</a></li>
+          <li><a href="./ofertas.html" aria-current="page">Ofertas</a></li>
+          <li><a href="./gastronomia.html">Gastronomía</a></li>
+          <li><a href="./contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="container stack">
+    <h1>Ofertas</h1>
+    <p class="mt-2">Descubrí las promociones del día.</p>
+    <section class="grid cols-3 mt-3">
+      <article class="card"><div class="card__body"><h3 class="card__title">2x1 Cafés</h3><p class="card__meta">Solo hoy en cafeterías adheridas.</p></div></article>
+      <article class="card"><div class="card__body"><h3 class="card__title">Moda -20%</h3><p class="card__meta">En locales seleccionados.</p></div></article>
+      <article class="card"><div class="card__body"><h3 class="card__title">Cine combo</h3><p class="card__meta">Entradas + pochoclos a precio especial.</p></div></article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container meta">
+      <span>© <span id="year"></span> Alto Saavedra Mall</span>
+      <span>Horarios: Lun a Dom 10–22 hs</span>
+    </div>
+  </footer>
+
+  <script src="./main.js"></script>
+</body>
+</html>

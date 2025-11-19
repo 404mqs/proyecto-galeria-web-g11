@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entretenimientos – Alto Saavedra Mall</title>
+  <meta name="description" content="Cine, bowling, juegos para chicos, arte y música en vivo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="container bar">
+      <a class="logo" href="./">Alto Saavedra Mall</a>
+      <nav aria-label="Principal">
+        <ul class="nav">
+          <li><a href="./index.html">Inicio</a></li>
+          <li><a href="./servicios.html">Servicios</a></li>
+          <li><a href="./entretenimientos.html" aria-current="page">Entretenimientos</a></li>
+          <li><a href="./locales/">Locales</a></li>
+          <li><a href="./ofertas.html">Ofertas</a></li>
+          <li><a href="./gastronomia.html">Gastronomía</a></li>
+          <li><a href="./contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="container stack">
+    <h1>Entretenimientos</h1>
+    <p class="mt-2">Diversión para todas las edades.</p>
+    <section class="grid cols-2 mt-3">
+      <article class="card"><div class="card__body"><h3 class="card__title">Cine</h3><p class="card__meta">Estrenos y clásicos.</p></div></article>
+      <article class="card"><div class="card__body"><h3 class="card__title">Bowling</h3><p class="card__meta">Pistas modernas.</p></div></article>
+      <article class="card"><div class="card__body"><h3 class="card__title">Juegos</h3><p class="card__meta">Espacios para chicos.</p></div></article>
+      <article class="card"><div class="card__body"><h3 class="card__title">Arte y música</h3><p class="card__meta">Muestras y shows en vivo.</p></div></article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container meta">
+      <span>© <span id="year"></span> Alto Saavedra Mall</span>
+      <span>Horarios: Lun a Dom 10–22 hs</span>
+    </div>
+  </footer>
+
+  <script src="./main.js"></script>
+</body>
+</html>
