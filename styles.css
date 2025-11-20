@@ -10,7 +10,7 @@ img,svg,video{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit}
 
-/* Tokens / Tema (paleta + tipografías) */
+/* Tokens / Tema (paleta + tipografias) */
 :root{
   --color-bg:#FAF7F2;
   --color-surface:#F1EBE4;
