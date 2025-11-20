@@ -4,17 +4,237 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Locales – Alto Saavedra Mall</title>
-  <meta name="description" content="Listado de locales y mapa interactivo.">
+  <meta name="description" content="Encontrá tus marcas favoritas y nuevos emprendimientos.">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="../styles.css">
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+    /* --- ESTILOS BASE (Desktop) --- */
+
+    /* Mapa Container */
+    #map-container {
+      position: relative;
+      width: 100%;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-1);
+      margin-bottom: var(--space-4);
+      background: #e8e0d5;
+    }
+
+    #map-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Pin del Mapa */
+    .map-pin {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      background-color: var(--color-primary);
+      border: 3px solid #fff;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.2s ease, background-color 0.2s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .map-pin:hover, .map-pin.active {
+      background-color: var(--color-primary-hover);
+      transform: rotate(-45deg) scale(1.2);
+      z-index: 20;
+    }
+
+    /* Tooltip (Tu configuración exacta) */
+    .pin-tooltip {
+      position: absolute;
+      transform: rotate(45deg) translate(-25%, -55%); /* Tu ajuste personalizado */
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      pointer-events: none;
+      display: none;
+    }
+    
+    .pin-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+    }
+
+    /* --- MODAL --- */
+    #modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 1000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(3px);
+      padding: 1rem; /* Margen para que no toque bordes en celular */
+    }
+
+    .modal-card {
+      background-color: #fff;
+      width: 100%;
+      max-width: 500px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      position: relative;
+      animation: fadeIn 0.3s ease-out;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-img-container {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      flex-shrink: 0; /* Evita que la imagen se achique de más */
+    }
+    .modal-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-body {
+      padding: var(--space-3);
+      text-align: center;
+    }
+
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+
+    .modal-rubro {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-close-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      border-radius: 50%;
+      width: 36px; /* Un poco más grande para dedo */
+      height: 36px;
+      cursor: pointer;
+      font-size: 1.4rem;
+      line-height: 1;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      z-index: 10; /* Asegura que esté sobre la imagen */
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* --- RESPONSIVE (MEDIA QUERIES) --- */
+
+    /* Tablets y pantallas medianas (max 900px) */
+    @media (max-width: 900px) {
+      /* La grilla de locales pasa a 2 columnas */
+      .grid.cols-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Celulares (max 600px) */
+    @media (max-width: 600px) {
+      /* 1. Grilla a 1 sola columna (uno abajo del otro) */
+      .grid.cols-3 {
+        grid-template-columns: 1fr;
+      }
+
+      /* 2. Ajuste del Header para que no se rompa */
+      .site-header .bar {
+        flex-direction: column;
+        gap: 0.5rem; /* Menos espacio entre logo y menú */
+        padding: 0.5rem 0; /* Menos relleno vertical */
+      }
+      
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px; /* Botones más juntitos */
+      }
+
+      .nav li a {
+        padding: 5px 10px; /* Botones más chicos */
+        font-size: 0.85rem; /* Letra un pelín más chica */
+        background-color: rgba(0,0,0,0.05); /* Un fondito suave para distinguirlos */
+      }
+
+      /* 3. Ajuste de Pines en Mapa (ligeramente más chicos) */
+      .map-pin {
+        width: 28px;
+        height: 28px;
+        border-width: 2px;
+      }
+
+      /* 4. Tooltips ocultos en táctil */
+      /* En celular el "hover" a veces confunde, mejor confiar en el click/tap */
+      .pin-tooltip {
+        display: none !important;
+      }
+    }
+    /* CORRECCIÓN Z-INDEX HEADER */
+.site-header {
+  position: sticky; 
+  top: 0;
+  /* Subimos esto de 10 a 1000 para que tape a los pines */
+  z-index: 1000 !important; 
+  /* Aseguramos que tenga fondo sólido para que no se trasluzca el mapa */
+  background-color: var(--color-bg); 
+}
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  
   <header class="site-header">
     <div class="container bar">
-      <a class="logo" href="../">Alto Saavedra Mall</a>
+      <a class="logo" href="../index.html">Alto Saavedra Mall</a>
       <nav aria-label="Principal">
         <ul class="nav">
           <li><a href="../index.html">Inicio</a></li>
@@ -30,22 +250,19 @@
   </header>
 
   <main id="contenido" class="container stack">
-    <h1>Locales</h1>
+    <h1>Nuestros Locales</h1>
+    <p class="mt-2">Hacé clic en los pines del mapa para ver más detalles.</p>
 
-    <section class="mt-3">
-      <h2>Mapa</h2>
-      <figure class="mt-2">
-        <img src="../assets/svg/mall-map.svg" alt="Mapa esquemático del shopping" />
-      </figure>
+    <section>
+      <div id="map-container">
+        <img src="../assets/Mapa_Shopping.jpeg" alt="Plano del Shopping" id="map-image">
+      </div>
     </section>
 
-    <section class="mt-3">
-      <h2>Listado</h2>
-      <div class="grid cols-3 mt-2">
-        <article class="card"><div class="card__body"><h3 class="card__title">Cafetería Brisa</h3><p class="card__meta">Gastronomía • Planta Baja</p></div></article>
-        <article class="card"><div class="card__body"><h3 class="card__title">Moda Álamo</h3><p class="card__meta">Moda • Nivel 1</p></div></article>
-        <article class="card"><div class="card__body"><h3 class="card__title">Deco Nido</h3><p class="card__meta">Deco • Nivel 1</p></div></article>
-      </div>
+    <section>
+        <h2 class="mb-3">Listado de Tiendas</h2>
+        <div id="lista-locales" class="grid cols-3 mt-3">
+            </div>
     </section>
   </main>
 
@@ -56,6 +273,180 @@
     </div>
   </footer>
 
-  <script src="../main.js"></script>
+  <div id="modal-overlay">
+    <div class="modal-card">
+      <button class="btn-close-modal" id="close-modal">&times;</button>
+      <div class="modal-img-container">
+        <img id="modal-img-src" src="" alt="">
+      </div>
+      <div class="modal-body">
+        <h3 id="modal-title" class="modal-title">Nombre del Local</h3>
+        <p id="modal-rubro" class="modal-rubro">Rubro</p>
+        <p class="mb-3">Encontrá las mejores ofertas y productos en nuestro local exclusivo.</p>
+        <a id="modal-link" class="btn btn--primary" href="#" target="_blank">Visitar Sitio Web</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+        $('#year').text(new Date().getFullYear());
+
+        // DATOS
+        const locales = [
+            // --- PROYECTOS REALES ---
+            {
+                nombre: "Librería Corcho",
+                rubro: "Librería",
+                url: "https://francoalvarez7.github.io/libreria-corcho/",
+                img: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=600&q=80",
+                top: "30%", left: "28%" 
+            },
+            {
+                nombre: "Galería Verde",
+                rubro: "Vivero & Deco",
+                url: "https://404mqs.github.io/tpo-galeria-verde/index.html",
+                img: "https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&w=600&q=80",
+                top: "70%", left: "29%" 
+            },
+            {
+                nombre: "FlowerSpot",
+                rubro: "Florería",
+                url: "https://berberiancarlos.github.io/FlowerSpot/Pages/index.html",
+                img: "https://images.unsplash.com/photo-1562690868-60bbe7293e94?auto=format&fit=crop&w=600&q=80",
+                top: "30%", left: "69%" 
+            },
+            // --- MARCAS EXTRA ---
+            {
+                nombre: "Café Central",
+                rubro: "Gastronomía",
+                url: "#",
+                img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80",
+                top: "50%", left: "50%" 
+            },
+            {
+                nombre: "Tech Store",
+                rubro: "Tecnología",
+                url: "#",
+                img: "https://images.unsplash.com/photo-1531297461136-82lw9f255c73?auto=format&fit=crop&w=600&q=80",
+                top: "70%", left: "69%" 
+            },
+            {
+                nombre: "Sport House",
+                rubro: "Deportes",
+                url: "#",
+                img: "https://images.unsplash.com/photo-1511185076093-a6b398913c60?auto=format&fit=crop&w=600&q=80",
+                top: "38%", left: "25%" 
+            },
+            {
+                nombre: "Cinema Plus",
+                rubro: "Entretenimiento",
+                url: "#",
+                img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80",
+                top: "62%", left: "72%" 
+            },
+            {
+                nombre: "Moda Urbana",
+                rubro: "Indumentaria",
+                url: "#",
+                img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80",
+                top: "62%", left: "25%" 
+            },
+            {
+                nombre: "Candy Shop",
+                rubro: "Dulces",
+                url: "#",
+                img: "https://images.unsplash.com/photo-1582058091505-f87a2e5589c9?auto=format&fit=crop&w=600&q=80",
+                top: "38%", left: "72%" 
+            }
+        ];
+
+        const $mapContainer = $('#map-container');
+        const $listaLocales = $('#lista-locales');
+        const $modalOverlay = $('#modal-overlay');
+
+        // GENERAR PINES Y CARDS
+        locales.forEach((local, index) => {
+            const pinHtml = `
+            <div class="map-pin" id="pin-${index}" style="top: ${local.top}; left: ${local.left};">
+                <div class="pin-tooltip">${local.nombre}</div>
+            </div>
+        `;
+            $mapContainer.append(pinHtml);
+
+            const cardHtml = `
+                <article class="card" id="card-${index}">
+                    <img class="card__media" src="${local.img}" alt="${local.nombre}" style="height: 200px; object-fit: cover;">
+                    <div class="card__body">
+                        <h3 class="card__title">${local.nombre}</h3>
+                        <p class="card__meta">${local.rubro}</p>
+                        <div class="mt-2">
+                            <button class="btn btn--primary trigger-modal" data-index="${index}">Ver detalles</button>
+                        </div>
+                    </div>
+                </article>
+            `;
+            $listaLocales.append(cardHtml);
+        });
+
+        // --- MODAL ---
+        function abrirModal(index) {
+            const data = locales[index];
+            $('#modal-title').text(data.nombre);
+            $('#modal-rubro').text(data.rubro);
+            $('#modal-img-src').attr('src', data.img);
+            $('#modal-link').attr('href', data.url);
+            $modalOverlay.css('display', 'flex').hide().fadeIn(200);
+        }
+
+        function cerrarModal() {
+            $modalOverlay.fadeOut(200);
+        }
+
+        // EVENTOS
+        $('.map-pin').click(function() {
+            const index = $(this).attr('id').split('-')[1];
+            abrirModal(index);
+        });
+
+        $('.trigger-modal').click(function(e) {
+            e.preventDefault();
+            const index = $(this).data('index');
+            abrirModal(index);
+        });
+
+        $('#close-modal').click(cerrarModal);
+        $modalOverlay.click(function(e) {
+            if (e.target === this) cerrarModal();
+        });
+        $(document).keydown(function(e) {
+            if (e.key === "Escape") cerrarModal();
+        });
+
+        $('.card').hover(
+            function() {
+                const index = $(this).attr('id').split('-')[1];
+                $(`#pin-${index}`).addClass('active');
+            },
+            function() {
+                const index = $(this).attr('id').split('-')[1];
+                $(`#pin-${index}`).removeClass('active');
+            }
+        );
+
+        $('.map-pin').hover(
+            function() {
+                $(this).addClass('active');
+                $(this).css('z-index', 50);
+                $(this).find('.pin-tooltip').stop(true, true).fadeIn(200);
+            }, 
+            function() {
+                $(this).removeClass('active');
+                $(this).css('z-index', 10);
+                $(this).find('.pin-tooltip').stop(true, true).fadeOut(200);
+            }
+        );
+    });
+  </script>
 </body>
 </html>
