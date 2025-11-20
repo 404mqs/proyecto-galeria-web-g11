@@ -20,7 +20,7 @@
           <li><a href="./index.html" aria-current="page">Inicio</a></li>
           <li><a href="./servicios.html">Servicios</a></li>
           <li><a href="./entretenimientos.html">Entretenimientos</a></li>
-          <li><a href="./locales/">Locales</a></li>
+          <li><a href="./locales/locales.html">Locales</a></li>
           <li><a href="./ofertas.html">Ofertas</a></li>
           <li><a href="./gastronomia.html">Gastronomía</a></li>
           <li><a href="./contacto.html">Contacto</a></li>
@@ -31,21 +31,41 @@
 
   <main id="contenido">
     <section class="hero">
-      <div class="container">
+      <div class="hero-content container">
         <h1>Bienvenidos a Alto Saavedra</h1>
-        <p class="mt-2">Compras, gastronomía y entretenimiento en un ambiente moderno y cálido.</p>
+        <p class="hero-subtitle mt-2">Compras, gastronomía y entretenimiento en un ambiente moderno y cálido.</p>
+        <p class="hero-description mt-2">
+          Descubrí más de 100 locales, restaurantes de primer nivel, entretenimiento para toda la familia 
+          y servicios exclusivos en nuestro centro comercial. Una experiencia de shopping única 
+          que combina tradición, innovación y la mejor atención al cliente.
+        </p>
         <div class="mt-3 header-cta">
-          <a class="btn btn--primary" href="./locales/">Explorar locales</a>
+          <a class="btn btn--primary" href="./locales/locales.html">Explorar locales</a>
           <a class="btn" href="./ofertas.html">Ver ofertas</a>
         </div>
       </div>
     </section>
 
-    <section class="container stack">
-      <h2>Mapa del shopping</h2>
-      <figure class="mt-2">
-        <img src="./assets/svg/mall-map.svg" alt="Vista esquemática del mapa del shopping" />
-      </figure>
+    <section class="home-section">
+      <div class="container stack">
+        <h2>Mapa del shopping</h2>
+        <figure class="mt-2">
+          <img src="./assets/svg/mall-map.svg" alt="Vista esquemática del mapa del shopping" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="home-section video-section">
+      <div class="container stack">
+        <h2>Conocé nuestro centro comercial</h2>
+        <div class="video-container mt-2">
+          <video controls poster="./assets/images/video-poster.jpg">
+            <source src="./assets/videos/mall-tour.mp4" type="video/mp4">
+            <source src="./assets/videos/mall-tour.webm" type="video/webm">
+            Tu navegador no soporta videos HTML5.
+          </video>
+        </div>
+      </div>
     </section>
   </main>
 
