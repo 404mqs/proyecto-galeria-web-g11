@@ -32,12 +32,45 @@
   <main id="contenido" class="container stack">
     <h1>Gastronomía</h1>
     <p class="mt-2">Sabores para todos los gustos.</p>
-    <section class="grid cols-3 mt-3">
-      <article class="card"><div class="card__body"><h3 class="card__title">Cafeterías</h3><p class="card__meta">Aromas y pastelería.</p></div></article>
-      <article class="card"><div class="card__body"><h3 class="card__title">Restaurantes</h3><p class="card__meta">Menús completos.</p></div></article>
-      <article class="card"><div class="card__body"><h3 class="card__title">Rápida</h3><p class="card__meta">Opciones al paso.</p></div></article>
+    
+    <button class="gastronomia-back-btn" id="backBtn" onclick="showCategories()">← Volver a categorías</button>
+    
+    <section class="grid cols-3 mt-3" id="categorySection">
+      <article class="card category-cards" onclick="showRestaurants('cafeterias')">
+        <div class="card__body">
+          <h3 class="card__title">Cafeterías</h3>
+          <p class="card__meta">Aromas y pastelería.</p>
+        </div>
+      </article>
+      <article class="card category-cards" onclick="showRestaurants('restaurantes')">
+        <div class="card__body">
+          <h3 class="card__title">Restaurantes</h3>
+          <p class="card__meta">Menús completos.</p>
+        </div>
+      </article>
+      <article class="card category-cards" onclick="showRestaurants('rapida')">
+        <div class="card__body">
+          <h3 class="card__title">Rápida</h3>
+          <p class="card__meta">Opciones al paso.</p>
+        </div>
+      </article>
     </section>
+
+    <div class="restaurant-grid" id="restaurantGrid"></div>
   </main>
+
+  <!-- Modal -->
+  <div id="restaurantModal" class="restaurant-modal">
+    <div class="restaurant-modal-content">
+      <span class="close" onclick="closeRestaurantModal()">&times;</span>
+      <div class="restaurant-modal-header">
+        <h2 class="restaurant-modal-title" id="modalTitle"></h2>
+        <p class="restaurant-modal-subtitle" id="modalSubtitle"></p>
+      </div>
+      <div class="restaurant-details" id="modalDetails"></div>
+      <a href="#" class="visit-btn" id="visitBtn" target="_blank">Visitar sitio web</a>
+    </div>
+  </div>
 
   <footer class="site-footer">
     <div class="container meta">

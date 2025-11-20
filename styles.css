@@ -63,6 +63,20 @@ a:hover{color:var(--color-primary)}
 .stack>*+*{margin-top:var(--space-3)}
 .grid{display:grid;gap:var(--space-3)}
 
+/* Sticky Footer Layout */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
 .site-header{background:var(--color-bg);border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:10}
 .site-header .bar{display:flex;align-items:center;justify-content:space-between;padding:var(--space-2) 0}
 .logo{font-family:var(--font-serif);font-weight:700}
@@ -74,7 +88,7 @@ a:hover{color:var(--color-primary)}
 .hero{padding:var(--space-4) 0}
 .hero h1{margin-bottom:var(--space-2)}
 
-.site-footer{margin-top:var(--space-4);padding:var(--space-3) 0;background:var(--color-surface);color:var(--color-text)}
+.site-footer{margin-top:auto;padding:var(--space-3) 0;background:var(--color-surface);color:var(--color-text)}
 .site-footer .meta{display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);flex-wrap:wrap}
 
 @media (min-width:900px){
@@ -103,3 +117,198 @@ a:hover{color:var(--color-primary)}
 .is-highlighted{outline:3px dashed var(--color-primary);outline-offset:2px}
 
 .badge{display:inline-block;background:var(--color-primary);color:#fff;border-radius:999px;padding:.125rem .5rem;font:.75rem var(--font-sans)}
+
+/* ======== GASTRONOMIA.HTML STYLES ======== */
+.category-cards {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-cards:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.restaurant-grid {
+  display: none;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.restaurant-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+.restaurant-image {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.restaurant-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+}
+
+.restaurant-info {
+  padding: 1.5rem;
+}
+
+.restaurant-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-serif);
+}
+
+.restaurant-cuisine {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.restaurant-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.stars {
+  color: #ffd700;
+}
+
+/* Modal Styles para Gastronomía */
+.restaurant-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  animation: fadeIn 0.3s ease;
+}
+
+.restaurant-modal-content {
+  background-color: white;
+  margin: 5% auto;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  animation: slideIn 0.3s ease;
+}
+
+.restaurant-modal .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+}
+
+.restaurant-modal .close:hover {
+  color: #000;
+}
+
+.restaurant-modal-header {
+  margin-bottom: 1.5rem;
+  padding-right: 2rem;
+}
+
+.restaurant-modal-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-serif);
+}
+
+.restaurant-modal-subtitle {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.restaurant-details {
+  margin-bottom: 2rem;
+}
+
+.detail-item {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.detail-label {
+  font-weight: 600;
+  min-width: 120px;
+}
+
+.visit-btn {
+  background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.visit-btn:hover {
+  transform: translateY(-2px);
+  color: white;
+}
+
+.gastronomia-back-btn {
+  background: #f0f0f0;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  display: none;
+}
+
+.gastronomia-back-btn:hover {
+  background: #e0e0e0;
+}
+
+/* Animaciones para Gastronomía */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
