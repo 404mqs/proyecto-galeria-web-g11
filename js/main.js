@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Otros scripts simples pueden ir aquí (mapa, buscador, etc.)
 });
 
-// ======== GASTRONOMIA.HTML SCRIPTS ========
+// ======== GASTRONOMIA.HTML SCRIPT ========
 const restaurantData = {
   cafeterias: [
     {
