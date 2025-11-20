@@ -39,8 +39,10 @@ Cada miembro del grupo: un local propio con su página individual (card en lista
 ├─ locales/
 │  ├─ index.html            (listado + mapa)
 │  └─ [slug-del-local].html (páginas individuales)
-├─ styles.css               (único CSS con reset + tokens + componentes)
-├─ main.js                  (JS simple en raíz)
+├─ css/
+│  └─ styles.css            (único CSS con reset + tokens + componentes)
+├─ js/
+│  └─ main.js               (JS simple en raíz)
 ├─ assets/                  (solo imágenes y SVGs)
 │  ├─ img/
 │  └─ svg/
@@ -64,7 +66,10 @@ Cada miembro del grupo: un local propio con su página individual (card en lista
 - Tipografías:
   - Titulares: Playfair Display
   - Texto / Botones: Inter (Regular / Semibold)
-- Iconografía: Material Symbols o Feather Icons.
+- Iconografía: Material Symbols (Rounded) o Feather Icons. Para usar Material Symbols en páginas con íconos:
+```html
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+```
 - Estética: moderno natural, cálido, sin neones ni estética tech.
 
 Tokens en CSS (variables globales):
@@ -114,6 +119,55 @@ Importación de fuentes (en `<head>`):
 - Grid responsive: contenedor central max-width 1200px; gutters con `--space-*`.
 - Componentes: Header+Nav, Hero, Cards, Grillas, Secciones (Servicios, Ofertas, Gastronomía), Mapa (SVG), Modal, Formulario, Footer.
 
+Componente: Cards de Servicios
+- Uso: página `servicios.html` para listar facilidades del shopping.
+- Accesibilidad: lista con `role="list"`; cada card con `aria-label` descriptivo; iconos decorativos con `aria-hidden="true"`.
+- HTML:
+```html
+<section aria-labelledby="titulo-servicios">
+  <h2 id="titulo-servicios" class="sr-only">Listado de servicios</h2>
+  <ul class="services-grid" role="list">
+    <li>
+      <article class="service-card" aria-label="Estacionamiento accesible, señalizado y amplio">
+        <div class="service-card__icon" aria-hidden="true">
+          <span class="material-symbols-rounded" aria-hidden="true">local_parking</span>
+        </div>
+        <div>
+          <h3 class="service-card__title">Estacionamiento</h3>
+          <p class="service-card__desc">Amplio, señalizado y con espacios reservados.</p>
+        </div>
+      </article>
+    </li>
+  </ul>
+  <!-- Repetir para WiFi, Espacios verdes, Lactancia, Eventos, Atención al cliente -->
+</section>
+```
+- CSS (en `css/styles.css`):
+```css
+.services-grid{display:grid;gap:var(--space-3)}
+@media (min-width:600px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:900px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1200px){.services-grid{grid-template-columns:repeat(3,1fr)}}
+.service-card{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-1);padding:var(--space-4);display:flex;gap:var(--space-3);min-height:180px}
+.service-card__icon{flex:0 0 72px;height:72px;border-radius:16px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--color-primary),var(--color-primary-hover));color:#fff}
+.service-card__title{font:700 1.1rem var(--font-serif)}
+.service-card__desc{color:var(--color-text-muted)}
+```
+
+**Entertainment Cards (Image-based):**
+```css
+.entertainment-grid{display:grid;gap:var(--space-3);margin-top:var(--space-3)}
+@media (min-width:600px){.entertainment-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1200px){.entertainment-grid{grid-template-columns:repeat(3,1fr)}}
+.entertainment-card{position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow-1);transition:transform .3s ease, box-shadow .3s ease}
+.entertainment-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 12px 32px rgba(0,0,0,.2)}
+.entertainment-card__image{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
+.entertainment-card:hover .entertainment-card__image{transform:scale(1.1)}
+.entertainment-card__overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.3) 50%, rgba(0,0,0,.1) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-3);color:#fff}
+.entertainment-card__title{font:700 1.5rem var(--font-serif);text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.entertainment-card__desc{margin:.5rem 0 0;font-size:.95rem;opacity:.9;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+```
+
 Ejemplo de esqueleto HTML base (links simplificados):
 ```html
 <!doctype html>
@@ -123,7 +177,7 @@ Ejemplo de esqueleto HTML base (links simplificados):
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alto Saavedra Mall</title>
   <meta name="description" content="Shopping moderno, cálido y accesible en Saavedra.">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -150,7 +204,7 @@ Ejemplo de esqueleto HTML base (links simplificados):
     <div class="container">© Alto Saavedra Mall</div>
   </footer>
 
-  <script src="./main.js"></script>
+  <script src="./js/main.js"></script>
 </body>
 </html>
 ```
@@ -172,7 +226,7 @@ Card (BEM):
 ## 6) Páginas y Contenidos
 - Inicio: Hero con imagen descriptiva, titular, CTA "Explorar"; secciones destacadas (Ofertas del día, Restaurantes), avance al mapa.
 - Servicios: Cards con iconos (estacionamiento, espacios verdes, patio de juegos, sala de lactancia, atención al cliente, WiFi). Alt y labels claros.
-- Entretenimientos: Cine, bowling, juegos, arte, música/eventos.
+- Entretenimientos: 6 cards con imágenes de fondo (Cine, Bowling, Juegos infantiles, Arte/Galería, Música/Eventos, Realidad Virtual). Diseño visual distintivo con overlays degradados y efectos hover dinámicos. Textos en blanco con text-shadow para legibilidad. Grid 2x3 responsivo con aspect-ratio 4:3, zoom en hover y sombras elevadas.
 - Locales:
   - Listado: cards por local (foto, nombre, rubro, botón "Ver local").
   - Mapa interactivo: SVG con zonas por local (hover, focus, click). Buscador JS para resaltar.
