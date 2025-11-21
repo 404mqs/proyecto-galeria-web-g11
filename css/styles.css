@@ -295,7 +295,7 @@ main {
 
 .restaurant-grid {
   display: none;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
   margin-top: 2rem;
 }
@@ -307,16 +307,20 @@ main {
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  height: 200px;
 }
 
 .restaurant-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
 }
 
 .restaurant-image {
-  width: 100%;
-  height: 200px;
+  width: 250px;
+  min-width: 250px;
+  height: 100%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -336,10 +340,14 @@ main {
 
 .restaurant-info {
   padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .restaurant-name {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   font-family: var(--font-serif);
@@ -347,7 +355,7 @@ main {
 
 .restaurant-cuisine {
   color: #666;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   margin-bottom: 1rem;
 }
 
@@ -355,11 +363,50 @@ main {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .stars {
   color: #ffd700;
+}
+
+/* Responsive: Mobile - cards verticales */
+@media (max-width: 768px) {
+  .restaurant-grid {
+    grid-template-columns: 1fr;
+    margin-bottom: var(--space-4);
+  }
+
+  .restaurant-card {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .restaurant-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .restaurant-image {
+    width: 100%;
+    min-width: 100%;
+    height: 200px;
+  }
+
+  .restaurant-info {
+    padding: 1.5rem;
+  }
+
+  .restaurant-name {
+    font-size: 1.25rem;
+  }
+
+  .restaurant-cuisine {
+    font-size: 0.9rem;
+  }
+
+  .restaurant-rating {
+    font-size: 0.9rem;
+  }
 }
 
 /* Modal Styles para Gastronomía */

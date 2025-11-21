@@ -44,6 +44,18 @@ const restaurantData = {
       speciality: "Café de lectura y brunch literario",
       price: "$$ - $$$",
       website: "https://brewandbooks.com"
+    },
+    {
+      name: "Aroma Café",
+      cuisine: "Café & Desayunos",
+      rating: 4.6,
+      image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=200&fit=crop",
+      description: "Desayunos completos y café de origen en un espacio luminoso y acogedor.",
+      hours: "7:30 - 20:00",
+      phone: "+54 11 4567-8910",
+      speciality: "Tostadas gourmet y café cold brew",
+      price: "$$ - $$$",
+      website: "https://aromacafe.com"
     }
   ],
   restaurantes: [
@@ -82,6 +94,18 @@ const restaurantData = {
       speciality: "Sushi premium y ramen artesanal",
       price: "$$$ - $$$$",
       website: "https://sakurasushi.com"
+    },
+    {
+      name: "Mar Azul",
+      cuisine: "Mariscos & Pescados",
+      rating: 4.7,
+      image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&h=200&fit=crop",
+      description: "Pescados y mariscos frescos del día preparados con técnicas mediterráneas.",
+      hours: "12:30 - 23:00",
+      phone: "+54 11 4567-8911",
+      speciality: "Paella valenciana y pulpo a la gallega",
+      price: "$$$ - $$$$",
+      website: "https://marazul.com"
     }
   ],
   rapida: [
@@ -120,6 +144,18 @@ const restaurantData = {
       speciality: "Wok de verduras y pollo teriyaki",
       price: "$ - $$",
       website: "https://wokexpress.com"
+    },
+    {
+      name: "Pizza Flash",
+      cuisine: "Pizzería Express",
+      rating: 4.3,
+      image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=200&fit=crop",
+      description: "Pizzas al estilo napolitano listas en minutos con masa madre artesanal.",
+      hours: "11:00 - 23:00",
+      phone: "+54 11 4567-8912",
+      speciality: "Pizza margarita y cuatro quesos",
+      price: "$ - $$",
+      website: "https://pizzaflash.com"
     }
   ]
 };
