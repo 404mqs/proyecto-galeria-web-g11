@@ -15,7 +15,7 @@ Documento técnico de diseño orientado a implementación con HTML, CSS y JavaSc
 - Inicio (`/index.html`)
 - Servicios (`/servicios.html`)
 - Entretenimientos (`/entretenimientos.html`)
-- Locales comerciales (`/locales/index.html`)
+- Locales comerciales (`/locales/locales.html`)
   - Listado de locales (cards)
   - Mapa interactivo (SVG) obligatorio
   - Páginas individuales por local (opcional, una por integrante): `/locales/[slug].html`
