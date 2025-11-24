@@ -967,4 +967,200 @@ html { scroll-behavior: smooth; }
 .category-count{background:var(--color-primary);color:#fff;padding:.25rem .75rem;border-radius:999px;font-size:.8rem;font-weight:600}
 
 .restaurant-brief{color:var(--color-text-muted);font-size:.9rem;margin:.5rem 0;line-height:1.4}
+/* --- Botón flotante --- */
+/* ======================= */
+/*  NUEVO CHATBOT THEME   */
+/* ======================= */
 
+#chatbot-toggle {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: var(--color-primary);
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 28px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    transition: transform .25s ease, box-shadow .25s ease;
+    z-index: 1100;
+}
+#chatbot-toggle:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.35);
+}
+
+
+/* WINDOW */
+#chatbot-window {
+    position: fixed;
+    bottom: 100px;
+    right: 25px;
+    width: 380px; /* ANTES: 350px */
+    height: 500px; /* Un poquito más alto */
+    background: var(--color-surface);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    animation: fadeInUp .3s ease;
+    z-index: 1100;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* HEADER */
+#chatbot-header {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+    color: #fff;
+    padding: 14px 16px;
+    font-size: 17px;
+    font-family: var(--font-serif);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chatbot-close {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+#chatbot-close:hover {
+    background: rgba(255,255,255,0.35);
+}
+
+/* BOT MESSAGE */
+.bot-msg {
+    background: #fff;
+    border-radius: var(--radius-md);
+    align-self: flex-start;
+    font-size: 14px;
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    box-shadow: var(--shadow-1);
+    border-left: 4px solid var(--color-primary);
+    padding: 14px 16px; /* más aire */
+    max-width: 90%; 
+}
+
+/* USER MESSAGE */
+.user-msg {
+    background: var(--color-primary);
+    color: white;
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    max-width: 85%;
+    align-self: flex-end;
+    font-size: 14px;
+    box-shadow: var(--shadow-1);
+    font-family: var(--font-sans);
+}
+
+/* OPTIONS */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* OPTION BUTTON */
+.option-btn {
+    padding: 12px 14px;
+    border: none;
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-align: left;
+    transition: all .2s ease;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    box-shadow: var(--shadow-1);
+    border-left: 4px solid var(--color-primary);
+}
+.option-btn:hover {
+    background: var(--color-bg);
+    transform: translateY(-2px);
+}
+
+/* FOOTER */
+#chatbot-footer {
+    padding: 8px;
+    background: var(--color-bg);
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+
+#chat-content {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height: calc(480px - 60px - 40px) !important;
+    display: flex;
+    flex-direction: column;
+    padding: 16px !important; 
+    gap: 14px !important; 
+}
+#chat-content::-webkit-scrollbar {
+    width: 8px;
+}
+#chat-content::-webkit-scrollbar-track {
+    background: #e3dcd4;
+}
+#chat-content::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 4px;
+}
+.chatbot-show {
+    animation: chatbotFadeIn 0.35s ease forwards;
+}
+
+.chatbot-hide {
+    animation: chatbotFadeOut 0.25s ease forwards;
+}
+@keyframes chatbotFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes chatbotFadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+.msg-fade {
+    animation: fadeMessage 0.35s ease forwards;
+}
+
+@keyframes fadeMessage {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

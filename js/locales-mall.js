@@ -194,44 +194,52 @@ function initSearchFunctionality() {
     
     searchInput.on('input', function() {
         const query = $(this).val().toLowerCase().trim();
+        let matches = 0;
         
         if (query === '') {
-            // Sin búsqueda: mostrar todos los locales normalmente
-            $('.card').removeClass('local-highlighted local-muted');
-            $('.map-pin').removeClass('pin-highlighted pin-muted');
+            $('.card').fadeIn(200);
+            $('.map-pin').fadeIn(200);
+            $('#no-results').hide();
             return;
         }
         
-        // Filtrar cards del listado
+        // Filtrar cards
         $('.card').each(function() {
             const card = $(this);
             const nombre = card.find('h3').text().toLowerCase();
             const categoria = card.find('p').text().toLowerCase();
-            
-            if (nombre.includes(query) || categoria.includes(query)) {
-                // Coincidencia: destacar
-                card.removeClass('local-muted').addClass('local-highlighted');
+            const match = nombre.includes(query) || categoria.includes(query);
+
+            if (match) {
+                matches++;
+                card.stop(true, true).fadeIn(200);
             } else {
-                // No coincide: atenuar
-                card.removeClass('local-highlighted').addClass('local-muted');
+                card.stop(true, true).fadeOut(200);
             }
         });
-        
+
         // Filtrar pines del mapa
         $('.map-pin').each(function() {
             const pin = $(this);
             const tooltipText = pin.find('.pin-tooltip').text().toLowerCase();
-            
-            if (tooltipText.includes(query)) {
-                // Coincidencia: destacar pin
-                pin.removeClass('pin-muted').addClass('pin-highlighted');
+            const match = tooltipText.includes(query);
+
+            if (match) {
+                pin.stop(true, true).fadeIn(200);
             } else {
-                // No coincide: atenuar pin
-                pin.removeClass('pin-highlighted').addClass('pin-muted');
+                pin.stop(true, true).fadeOut(200);
             }
         });
+
+        // Mostrar mensaje si no hay resultados
+        if (matches === 0) {
+            $('#no-results').fadeIn(150);
+        } else {
+            $('#no-results').fadeOut(150);
+        }
     });
 }
+
 
 // ===============================
 // 8) TOOLTIP EN HOVER
