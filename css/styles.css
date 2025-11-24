@@ -81,7 +81,29 @@ main {
 .site-header{background:var(--color-bg);border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:1000}
 .site-header .bar{display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;flex-wrap:wrap;gap:.5rem;flex-direction:column}
 @media (min-width:600px){.site-header .bar{flex-direction:row;padding:var(--space-2) 0;gap:var(--space-2)}}
-.logo{font-family:var(--font-serif);font-weight:700;font-size:1.1rem}
+/* Contenedor del logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: .6rem;           /* separación entre icono y texto */
+  text-decoration: none;
+}
+
+/* Icono del logo */
+.logo-icon {
+  height: 40px;         /* ajustá entre 36–48 a gusto */
+  width: auto;
+  border-radius: 50%;   /* si querés círculo */
+  display: block;
+}
+
+/* Texto del logo */
+.logo-text {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-text);
+}
 
 .nav{display:flex;gap:5px;flex-wrap:wrap;width:100%;justify-content:center}
 @media (min-width:600px){.nav{width:auto;gap:var(--space-2);justify-content:flex-start}}
@@ -742,3 +764,112 @@ html { scroll-behavior: smooth; }
   z-index: 1000 !important; 
   background-color: var(--color-bg); 
 }
+
+/* ======== OFERTAS DESTACADAS ======== */
+/* Contenedor completo de la oferta destacada */
+.featured-wrapper {
+  background: var(--color-surface);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  margin-top: var(--space-3);
+}
+
+/* Encabezado dentro del recuadro */
+.featured-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Título del local */
+.featured-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+}
+/* ====================== */
+/* CONTACTO – NUEVO LAYOUT */
+/* ====================== */
+
+.contact-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+.contact-info {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.contact-card {
+  background: var(--color-surface);
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+}
+
+.contact-card h3 {
+  font-family: var(--font-serif);
+  margin-bottom: .5rem;
+}
+
+.contact-form {
+  background: var(--color-surface);
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  margin-top: .3rem;
+  padding: .7rem;
+  border-radius: var(--radius-md);
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.contact-form .full {
+  grid-column: span 2;
+}
+
+/* POPUP */
+
+.popup-success {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(3px);
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+.popup-box {
+  background: white;
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  text-align: center;
+  min-width: 250px;
+
+}
+/* Botón ancho completo dentro del formulario */
+.contact-form .btn--primary {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+

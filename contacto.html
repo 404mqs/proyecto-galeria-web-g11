@@ -10,11 +10,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/styles.css">
 </head>
+
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
   <header class="site-header">
     <div class="container bar">
-      <a class="logo" href="./">Alto Saavedra Mall</a>
+      <a class="logo" href="./index.html">
+        <img src="./assets/img/logo-alto-saavedra.png" alt="Alto Saavedra Mall – Inicio" class="logo-icon">
+        <span class="logo-text">Alto Saavedra Mall</span>
+      </a>
+
       <nav aria-label="Principal">
         <ul class="nav">
           <li><a href="./index.html">Inicio</a></li>
@@ -30,27 +36,66 @@
   </header>
 
   <main id="contenido" class="container stack">
+
     <h1>Contacto</h1>
     <p class="mt-2">Escribinos y te respondemos a la brevedad.</p>
-    <form class="mt-3" aria-describedby="ayuda-contacto">
-      <div class="grid cols-2">
+
+    <!-- ======= NUEVO LAYOUT EN 2 COLUMNAS ======= -->
+    <div class="contact-wrapper">
+
+      <!-- IZQUIERDA: TARJETAS -->
+      <div class="contact-info">
+
+        <div class="contact-card">
+          <h3>Dirección</h3>
+          <p>Av. Cabildo 2040<br>Belgrano, Ciudad Autónoma de Buenos Aires</p>
+        </div>
+
+        <div class="contact-card">
+          <h3>Horarios de Atencion al Cliente</h3>
+          <p>Lunes a Viernes 10–18 hs</p>
+        </div>
+
+        <div class="contact-card">
+          <h3>Email</h3>
+          <p>atencioncliente@altosaavedramall.com</p>
+        </div>
+
+      </div>
+
+      <!-- DERECHA: FORMULARIO -->
+      <form class="contact-form" id="formContacto">
+
         <label>
           <span>Nombre</span>
-          <input type="text" name="nombre" required aria-required="true">
+          <input type="text" name="nombre" required>
         </label>
+
         <label>
           <span>Email</span>
-          <input type="email" name="email" required aria-required="true">
+          <input type="email" name="email" required>
         </label>
-      </div>
-      <label class="mt-2">
-        <span>Mensaje</span>
-        <textarea name="mensaje" rows="5" required aria-required="true"></textarea>
-      </label>
-      <p id="ayuda-contacto" class="sr-only">Todos los campos son obligatorios.</p>
-      <button class="btn btn--primary mt-2" type="submit">Enviar</button>
-    </form>
+
+        <label class="full">
+          <span>Mensaje</span>
+          <textarea name="mensaje" rows="6" required></textarea>
+        </label>
+
+      <button class="btn btn--primary full" type="submit">Enviar</button>
+
+      </form>
+
+    </div>
+
   </main>
+
+  <!-- POPUP DE ÉXITO -->
+  <div id="popupSuccess" class="popup-success">
+    <div class="popup-box">
+      <p>¡Mensaje enviado con éxito!</p>
+      <button id="closePopup" class="btn btn--primary">Cerrar</button>
+    </div>
+  </div>
 
   <footer class="site-footer">
     <div class="container meta">
@@ -60,5 +105,7 @@
   </footer>
 
   <script src="./js/main.js"></script>
+  <script src="./js/contact.js"></script>
+
 </body>
 </html>
