@@ -633,17 +633,20 @@ main {
 #map-container {
   position: relative;
   width: 100%;
-  border-radius: 80px;
+  max-width: 800px;
+  margin: 0 auto var(--space-4);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-1);
-  margin-bottom: var(--space-4);
-  background: #e8e0d5;
+  background: #f5f5f5;
+  border: 2px solid var(--color-surface);
 }
 
 #map-image {
   width: 100%;
   height: auto;
   display: block;
+  object-fit: contain;
 }
 
 .map-pin {
@@ -810,9 +813,14 @@ html { scroll-behavior: smooth; }
     background-color: rgba(0,0,0,0.05);
   }
 
+  #map-container {
+    max-width: 100%;
+    border-radius: var(--radius-md);
+  }
+
   .map-pin {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     border-width: 2px;
   }
 
@@ -820,6 +828,30 @@ html { scroll-behavior: smooth; }
     display: none !important;
   }
 }
+
+/* Responsive map styles */
+@media (min-width: 600px) {
+  #map-container {
+    max-width: 600px;
+  }
+  
+  .map-pin {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (min-width: 900px) {
+  #map-container {
+    max-width: 700px;
+  }
+  
+  .map-pin {
+    width: 36px;
+    height: 36px;
+  }
+}
+
 .site-header {
   position: sticky; 
   top: 0;
