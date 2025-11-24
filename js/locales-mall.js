@@ -187,7 +187,54 @@ function abrirModal(local) {
 
 
 // ===============================
-// 7) INICIALIZACIÓN
+// 7) BUSCADOR DE LOCALES
+// ===============================
+function initSearchFunctionality() {
+    const searchInput = $('#buscar-locales');
+    
+    searchInput.on('input', function() {
+        const query = $(this).val().toLowerCase().trim();
+        
+        if (query === '') {
+            // Sin búsqueda: mostrar todos los locales normalmente
+            $('.card').removeClass('local-highlighted local-muted');
+            $('.map-pin').removeClass('pin-highlighted pin-muted');
+            return;
+        }
+        
+        // Filtrar cards del listado
+        $('.card').each(function() {
+            const card = $(this);
+            const nombre = card.find('h3').text().toLowerCase();
+            const categoria = card.find('p').text().toLowerCase();
+            
+            if (nombre.includes(query) || categoria.includes(query)) {
+                // Coincidencia: destacar
+                card.removeClass('local-muted').addClass('local-highlighted');
+            } else {
+                // No coincide: atenuar
+                card.removeClass('local-highlighted').addClass('local-muted');
+            }
+        });
+        
+        // Filtrar pines del mapa
+        $('.map-pin').each(function() {
+            const pin = $(this);
+            const tooltipText = pin.find('.pin-tooltip').text().toLowerCase();
+            
+            if (tooltipText.includes(query)) {
+                // Coincidencia: destacar pin
+                pin.removeClass('pin-muted').addClass('pin-highlighted');
+            } else {
+                // No coincide: atenuar pin
+                pin.removeClass('pin-highlighted').addClass('pin-muted');
+            }
+        });
+    });
+}
+
+// ===============================
+// 8) TOOLTIP EN HOVER
 // ===============================
 $(document).ready(async function () {
 
@@ -196,6 +243,9 @@ $(document).ready(async function () {
     await loadLocalesJson();
 
     renderLocalesMall();
+    
+    // Inicializar funcionalidad de búsqueda
+    initSearchFunctionality();
 });
 
 

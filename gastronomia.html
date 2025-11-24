@@ -35,27 +35,35 @@
 
   <main id="contenido" class="container stack">
     <h1>Gastronomía</h1>
-    <p class="mt-2">Sabores para todos los gustos.</p>
+    <p class="mt-2 services-note">Sabores para todos los gustos. Desde cafés premium hasta comida rápida internacional.</p>
     
     <button class="gastronomia-back-btn" id="backBtn" onclick="showCategories()">← Volver a categorías</button>
     
-    <section class="grid cols-3 mt-3" id="categorySection">
-      <article class="card category-cards" onclick="showRestaurants('cafeterias')">
-        <div class="card__body">
-          <h3 class="card__title">Cafeterías</h3>
-          <p class="card__meta">Aromas y pastelería.</p>
+    <section class="gastronomia-categories-grid mt-3" id="categorySection">
+      <article class="gastronomia-category-card" onclick="showRestaurants('cafeterias')">
+        <div class="category-icon">☕</div>
+        <div class="category-content">
+          <h3 class="category-title">Cafeterías</h3>
+          <p class="category-description">Aromas únicos, café premium y pastelería artesanal para acompañar tus momentos especiales.</p>
+          <span class="category-count">3 locales</span>
         </div>
       </article>
-      <article class="card category-cards" onclick="showRestaurants('restaurantes')">
-        <div class="card__body">
-          <h3 class="card__title">Restaurantes</h3>
-          <p class="card__meta">Menús completos.</p>
+      
+      <article class="gastronomia-category-card" onclick="showRestaurants('restaurantes')">
+        <div class="category-icon">🍽️</div>
+        <div class="category-content">
+          <h3 class="category-title">Restaurantes</h3>
+          <p class="category-description">Experiencias gastronómicas completas con cocina internacional y ambiente único.</p>
+          <span class="category-count">3 locales</span>
         </div>
       </article>
-      <article class="card category-cards" onclick="showRestaurants('rapida')">
-        <div class="card__body">
-          <h3 class="card__title">Rápida</h3>
-          <p class="card__meta">Opciones al paso.</p>
+      
+      <article class="gastronomia-category-card" onclick="showRestaurants('rapida')">
+        <div class="category-icon">🍔</div>
+        <div class="category-content">
+          <h3 class="category-title">Comida Rápida</h3>
+          <p class="category-description">Las marcas más famosas del mundo con opciones rápidas, sabrosas y para toda la familia.</p>
+          <span class="category-count">4 locales</span>
         </div>
       </article>
     </section>
