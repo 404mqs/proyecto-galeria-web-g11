@@ -15,27 +15,139 @@ document.addEventListener("DOMContentLoaded", async () => {
     const container = document.getElementById("chatbot-container");
     if (!container) return; // Si no hay contenedor, no cargar chatbot
     
-    // Detectar si estamos en una subcarpeta
-    const isInSubfolder = window.location.pathname.includes('/locales/');
-    const basePath = isInSubfolder ? '../' : './';
-
-    // 1) cargar el HTML del chatbot
-    const response = await fetch(`${basePath}chatbot/chatbot.html`);
-    const html = await response.text();
-    container.innerHTML = html;
-
-    // 2) cargar chatbot.js DESPUÉS de cargar el HTML
-    const script = document.createElement("script");
-    script.src = `${basePath}js/chatbot.js`;
-
-    script.onload = () => {
-        if (typeof initChatbot === "function") {
-            initChatbot();   // 👍 ahora chat-content sí existe
+    // Función para obtener la ruta base correcta
+    function getBasePath() {
+        const path = window.location.pathname;
+        
+        // Si estamos en GitHub Pages (contiene el nombre del repo)
+        if (path.includes('/proyecto-galeria-web-g11/')) {
+            if (path.includes('/locales/')) {
+                return '../'; // Desde locales/ volver un nivel
+            } else {
+                return './'; // Desde raíz del proyecto
+            }
         }
-    };
+        
+        // Para desarrollo local
+        if (path.includes('/locales/')) {
+            return '../';
+        }
+        
+        return './';
+    }
+    
+    const basePath = getBasePath();
 
-    document.body.appendChild(script);
+    try {
+        // Crear chatbot simple inline si no se puede cargar dinámicamente
+        container.innerHTML = `
+            <div id="chatbot-toggle">💬</div>
+            <div id="chatbot-window" style="display:none;">
+                <div id="chatbot-header">
+                    <span>Asistente del Shopping</span>
+                    <button id="chatbot-close">✖</button>
+                </div>
+                <div id="chat-content">
+                    <div class="message-bot">
+                        <p>¡Hola! Soy el asistente de Alto Saavedra Mall 👋</p>
+                        <p>¿En qué puedo ayudarte?</p>
+                        <div class="chat-options">
+                            <button class="chat-option" onclick="showInfo('horarios')">🕒 Horarios</button>
+                            <button class="chat-option" onclick="showInfo('ubicacion')">📍 Ubicación</button>
+                            <button class="chat-option" onclick="showInfo('servicios')">🛠️ Servicios</button>
+                            <button class="chat-option" onclick="showInfo('contacto')">📞 Contacto</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="chatbot-footer"></div>
+            </div>
+        `;
+        
+        // Configurar funcionalidad básica
+        setupBasicChatbot();
+        
+    } catch (error) {
+        console.warn('Error cargando chatbot:', error);
+        container.style.display = 'none';
+    }
 });
+
+// Función para chatbot básico
+function setupBasicChatbot() {
+    const toggle = document.getElementById("chatbot-toggle");
+    const window_el = document.getElementById("chatbot-window");
+    const close_btn = document.getElementById("chatbot-close");
+    
+    if (!toggle || !window_el || !close_btn) return;
+    
+    let isOpen = false;
+    
+    toggle.addEventListener('click', () => {
+        isOpen = !isOpen;
+        window_el.style.display = isOpen ? 'block' : 'none';
+    });
+    
+    close_btn.addEventListener('click', () => {
+        isOpen = false;
+        window_el.style.display = 'none';
+    });
+    
+    // Click fuera para cerrar
+    window_el.addEventListener('click', (e) => {
+        if (e.target === window_el) {
+            isOpen = false;
+            window_el.style.display = 'none';
+        }
+    });
+}
+
+// Función para mostrar información
+function showInfo(type) {
+    const content = document.getElementById('chat-content');
+    if (!content) return;
+    
+    const responses = {
+        horarios: `
+            <div class="message-bot">
+                <p><strong>Horarios del Shopping:</strong></p>
+                <p>🗓️ Lunes a Domingo: 10:00 - 22:00 hs</p>
+                <p>🎄 Días especiales pueden tener horarios diferentes</p>
+                <button class="chat-option" onclick="location.reload()">↩️ Volver al inicio</button>
+            </div>
+        `,
+        ubicacion: `
+            <div class="message-bot">
+                <p><strong>Ubicación:</strong></p>
+                <p>📍 Saavedra, Ciudad Autónoma de Buenos Aires</p>
+                <p>🚌 Fácil acceso en transporte público</p>
+                <p>🚗 Amplio estacionamiento disponible</p>
+                <button class="chat-option" onclick="location.reload()">↩️ Volver al inicio</button>
+            </div>
+        `,
+        servicios: `
+            <div class="message-bot">
+                <p><strong>Nuestros Servicios:</strong></p>
+                <p>🅿️ Estacionamiento gratuito</p>
+                <p>📶 WiFi libre en todo el shopping</p>
+                <p>🏦 Cajeros automáticos</p>
+                <p>👶 Zona para niños</p>
+                <p>♿ Accesibilidad completa</p>
+                <button class="chat-option" onclick="location.reload()">↩️ Volver al inicio</button>
+            </div>
+        `,
+        contacto: `
+            <div class="message-bot">
+                <p><strong>Contacto:</strong></p>
+                <p>📞 Teléfono: +54 11 1234-5678</p>
+                <p>✉️ Email: info@altosaavedra.com</p>
+                <p>🌐 Web: altosaavedra.com</p>
+                <button class="chat-option" onclick="location.reload()">↩️ Volver al inicio</button>
+            </div>
+        `
+    };
+    
+    content.innerHTML = responses[type] || responses.horarios;
+}
 
 // ===============================
 // VARIABLES

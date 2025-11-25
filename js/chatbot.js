@@ -7,18 +7,61 @@ let categoriaSeleccionada = null;
 // ===============================
 async function initChatbot() {
     
-    // Detectar si estamos en una subcarpeta
-    const isInSubfolder = window.location.pathname.includes('/locales/');
-    const basePath = isInSubfolder ? '../' : './';
+    // Función para obtener la ruta base correcta
+    function getBasePath() {
+        const path = window.location.pathname;
+        
+        // Si estamos en GitHub Pages (contiene el nombre del repo)
+        if (path.includes('/proyecto-galeria-web-g11/')) {
+            if (path.includes('/locales/')) {
+                return '../'; // Desde locales/ volver un nivel
+            } else {
+                return './'; // Desde raíz del proyecto
+            }
+        }
+        
+        // Para desarrollo local
+        if (path.includes('/locales/')) {
+            return '../';
+        }
+        
+        return './';
+    }
+    
+    const basePath = getBasePath();
 
-    // cargar chatbot.json
-    chatbotData = await (await fetch(`${basePath}chatbot/chatbot.json`)).json();
+    try {
+        // cargar chatbot.json
+        const chatbotResponse = await fetch(`${basePath}chatbot/chatbot.json`);
+        if (chatbotResponse.ok) {
+            chatbotData = await chatbotResponse.json();
+        } else {
+            console.warn('No se pudo cargar chatbot.json');
+            chatbotData = { inicio: { message: "Chatbot no disponible", options: [] } };
+        }
 
-    localesData = await (await fetch(`${basePath}locales/locales.json`)).json?.() 
-        || window.localesData;
-    configurarToggleChatbot();   // ← añadir esta línea
-
-    renderNode("inicio");
+        // cargar locales.json (opcional)
+        try {
+            const localesResponse = await fetch(`${basePath}locales/locales.json`);
+            if (localesResponse.ok) {
+                localesData = await localesResponse.json();
+            }
+        } catch (e) {
+            console.warn('locales.json no disponible:', e);
+            localesData = window.localesData || {};
+        }
+        
+        configurarToggleChatbot();   // ← añadir esta línea
+        renderNode("inicio");
+        
+    } catch (error) {
+        console.warn('Error inicializando chatbot:', error);
+        // Crear interfaz mínima si hay error
+        const toggle = document.getElementById("chatbot-toggle");
+        if (toggle) {
+            toggle.style.display = 'none';
+        }
+    }
 }
 
 // ===============================
