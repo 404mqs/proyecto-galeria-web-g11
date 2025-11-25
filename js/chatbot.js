@@ -6,11 +6,15 @@ let categoriaSeleccionada = null;
 // INICIALIZAR CHATBOT
 // ===============================
 async function initChatbot() {
+    
+    // Detectar si estamos en una subcarpeta
+    const isInSubfolder = window.location.pathname.includes('/locales/');
+    const basePath = isInSubfolder ? '../' : './';
 
     // cargar chatbot.json
-    chatbotData = await (await fetch("/chatbot/chatbot.json")).json();
+    chatbotData = await (await fetch(`${basePath}chatbot/chatbot.json`)).json();
 
-    localesData = await (await fetch("/locales/locales.json")).json?.() 
+    localesData = await (await fetch(`${basePath}locales/locales.json`)).json?.() 
         || window.localesData;
     configurarToggleChatbot();   // ← añadir esta línea
 

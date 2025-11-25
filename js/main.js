@@ -13,15 +13,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 document.addEventListener("DOMContentLoaded", async () => {
 
     const container = document.getElementById("chatbot-container");
+    if (!container) return; // Si no hay contenedor, no cargar chatbot
+    
+    // Detectar si estamos en una subcarpeta
+    const isInSubfolder = window.location.pathname.includes('/locales/');
+    const basePath = isInSubfolder ? '../' : './';
 
     // 1) cargar el HTML del chatbot
-    const response = await fetch("/chatbot/chatbot.html");
+    const response = await fetch(`${basePath}chatbot/chatbot.html`);
     const html = await response.text();
     container.innerHTML = html;
 
     // 2) cargar chatbot.js DESPUÉS de cargar el HTML
     const script = document.createElement("script");
-    script.src = "/js/chatbot.js";
+    script.src = `${basePath}js/chatbot.js`;
 
     script.onload = () => {
         if (typeof initChatbot === "function") {
