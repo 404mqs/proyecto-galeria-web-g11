@@ -898,7 +898,95 @@ export async function renderLocales(containerSel = '#lista-locales') {
 
 ---
 
+## 12) Sistema de Chatbot
+
+### 12.1 Implementación Técnica
+
+**Arquitectura Modular:**
+```javascript
+// Carga dinámica desde main.js
+async function loadChatbot() {
+    const container = document.getElementById("chatbot-container");
+    
+    // Cargar HTML del widget
+    const response = await fetch("/chatbot/chatbot.html");
+    container.innerHTML = await response.text();
+    
+    // Cargar script de funcionalidad
+    const script = document.createElement("script");
+    script.src = "/js/chatbot.js";
+    script.onload = () => {
+        if (typeof initChatbot === "function") {
+            initChatbot();
+        }
+    };
+    document.head.appendChild(script);
+}
+```
+
+**Estructura de Datos:**
+```json
+{
+  "start": {
+    "message": "¡Hola! Soy el asistente de Alto Saavedra Mall...",
+    "options": [
+      {"text": "Ver horarios", "next": "horarios"},
+      {"text": "Ubicación", "next": "ubicacion"}
+    ]
+  }
+}
+```
+
+### 12.2 Experiencia de Usuario
+
+**Toggle Button:**
+- Posición fija: bottom: 20px, right: 20px
+- Emoji reconocible: 💬 
+- Hover effect con escala y sombra
+- Z-index elevado (1000) para visibility
+
+**Modal Window:**
+- Animación fade-in suave (200ms)
+- Tamaño responsive: 300px (mobile) → 350px (desktop)
+- Close button accesible con múltiples métodos
+- Focus management para accesibilidad
+
+### 12.3 Integración Cross-Page
+
+**Páginas con chatbot:**
+- ✅ index.html
+- ✅ servicios.html  
+- ✅ entretenimientos.html
+- ✅ ofertas.html
+- ✅ gastronomia.html
+- ✅ locales.html
+- ✅ contacto.html
+
+**Consistency patterns:**
+- Mismo comportamiento en todas las páginas
+- Estado independiente por sesión
+- Datos centralizados en chatbot.json
+- Estilos unificados en styles.css
+
+### 12.4 Contenido y Conversación
+
+**Nodos principales implementados:**
+- **start:** Saludo y opciones principales
+- **horarios:** Información de horarios del shopping
+- **ubicacion:** Dirección y transporte
+- **servicios:** Lista de facilidades disponibles
+- **locales:** Ayuda para encontrar tiendas específicas
+- **ofertas:** Información sobre promociones actuales
+
+**Principios de UX aplicados:**
+- Respuestas breves y accionables
+- Opciones múltiples para diferentes necesidades
+- Lenguaje natural y conversational
+- Fallback options para queries no reconocidas
+
+---
+
 *Documento técnico completo para el desarrollo del sitio web Alto Saavedra Mall - TP Universitario*
 
-*Última actualización: Diciembre 2024 con justificaciones UX y implementación completa*
+*Última actualización: Noviembre 2024 con sistema de chatbot integrado y justificaciones UX completas*
 
